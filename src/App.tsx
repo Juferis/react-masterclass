@@ -2,7 +2,6 @@ import { createGlobalStyle } from 'styled-components';
 import Router from './Router';
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -32,12 +31,13 @@ footer, header, hgroup, menu, nav, section {
 	box-sizing: border-box;
 }
 body {
-	font-family: 'Work Sans', sans-serif;
+	font-family: 'Roboto', sans-serif;
 	background-color: ${(props) => props.theme.bgColor};
 	color: ${(props) => props.theme.textColor};
 }
 a {
 	text-decoration: none;
+	color: inherit;
 }
 ol, ul {
 	list-style: none;
