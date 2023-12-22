@@ -14,20 +14,22 @@ const Header = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #a367b1;
 `;
 const CoinsList = styled.ul``;
 const Coin = styled.li`
-  background-color: white;
-  color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.cardBgColor};
+  color: ${(props) => props.theme.textColor};
   margin-bottom: 10px;
   border-radius: 15px;
+  border: 1px solid white;
   a {
     display: flex;
     align-items: center;
     padding: 20px;
     transition: color 0.2s ease-in-out;
   }
-  &hover {
+  &:hover {
     a {
       color: ${(props) => props.theme.accentColor};
       cursor: pointer;
@@ -47,13 +49,14 @@ const Img = styled.img`
   margin-right: 10px;
 `;
 
-function Coins() {
+function Coins({ toggleDark }: ICoinsProps) {
   // React Query는 데이터를 캐싱한다.
   const { isLoading, data } = useQuery<ICoin[]>('allCoins', fetchCoins);
   return (
     <Container>
       <Header>
         <Title>Coins 코인</Title>
+        <button onClick={toggleDark}>Toggle Mode</button>
       </Header>
       {isLoading ? (
         <Loader>Loading...</Loader>
@@ -90,4 +93,7 @@ interface ICoin {
   is_new: boolean;
   is_active: boolean;
   type: string;
+}
+interface ICoinsProps {
+  toggleDark: () => void;
 }

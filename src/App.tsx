@@ -1,6 +1,8 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 import Router from './Router';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { lightTheme, darkTheme } from './theme';
+import { useState } from 'react';
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -33,6 +35,11 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	font-family: 'Roboto', sans-serif;
+	font-weight: 600;
+	background-color: ${(props) => props.theme.bgColor};
+	color: ${(props) => props.theme.textColor};
+}
+body.dark-mode {
 	background-color: ${(props) => props.theme.bgColor};
 	color: ${(props) => props.theme.textColor};
 }
@@ -59,11 +66,15 @@ table {
 
 function App() {
   // <></> -> react에서는 Fragment를 이용해서 태그를 여러개 return한다.
+  const [isDark, setIsDark] = useState(false);
+  const toggleDark = () => setIsDark((current) => !current);
   return (
     <>
-      <GlobalStyle />
-      <Router />
-      <ReactQueryDevtools initialIsOpen={true} />
+      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+        <GlobalStyle />
+        <Router isDark={isDark} toggleDark={toggleDark} />
+        <ReactQueryDevtools initialIsOpen={true} />
+      </ThemeProvider>
     </>
   );
 }

@@ -2,9 +2,9 @@ import { useQuery } from 'react-query';
 import { fetchCoinHistory } from './api';
 
 import ApexChart from 'react-apexcharts';
-import { theme } from '../theme';
+import { lightTheme } from '../theme';
 
-function Chart({ coinId }: ChartProps) {
+function Chart({ coinId, isDark }: ChartProps) {
   const { isLoading, data } = useQuery<IHistorical[]>(
     ['ohlcv', coinId],
     () => fetchCoinHistory(coinId),
@@ -32,7 +32,7 @@ function Chart({ coinId }: ChartProps) {
           ]}
           options={{
             theme: {
-              mode: 'dark',
+              mode: isDark ? 'dark' : 'light',
             },
             chart: {
               height: 300,
@@ -60,7 +60,7 @@ function Chart({ coinId }: ChartProps) {
             fill: {
               type: 'gradient',
               gradient: {
-                gradientToColors: [theme.accentColor],
+                gradientToColors: [lightTheme.accentColor],
                 stops: [0, 60],
               },
             },
@@ -81,6 +81,7 @@ export default Chart;
 
 interface ChartProps {
   coinId: string;
+  isDark: boolean;
 }
 interface IHistorical {
   time_open: string;
