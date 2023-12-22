@@ -22,7 +22,6 @@ function Chart({ coinId }: ChartProps) {
               name: 'Price',
               data:
                 data?.map((price) => {
-                  console.log(price);
                   const data = {
                     x: price.time_close,
                     y: [price.open, price.high, price.low, price.close],

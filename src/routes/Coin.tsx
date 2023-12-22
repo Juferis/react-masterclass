@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router';
+import { useLocation, useParams, useHistory } from 'react-router';
 import { Link, Route, Switch, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 import Price from './Price';
@@ -74,6 +73,25 @@ const Tab = styled.span<{ $isActive: boolean }>`
     display: block;
   }
 `;
+const BackDiv = styled.div`
+  position: absolute;
+`;
+const BackButton = styled.button`
+  margin-top: 10px;
+  position: static;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 400;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 7px 7px;
+  border-radius: 10px;
+  color: ${(props) => props.theme.textColor};
+  &:hover {
+    color: ${(props) => props.theme.accentColor};
+    cursor: pointer;
+  }
+`;
 
 function Coin() {
   const { coinId } = useParams<CoinRouteParams>();
@@ -90,6 +108,10 @@ function Coin() {
     { refetchInterval: 1000 * 60 }
   );
   const loading = infoLoading || tickersLoading;
+  let history = useHistory();
+  const onClickBackBtn = () => {
+    history.push('/');
+  };
 
   return (
     <Container>
@@ -98,6 +120,10 @@ function Coin() {
           {state?.name ? state.name : loading ? 'Loading...' : infoData?.name}
         </title>
       </Helmet>
+      <BackDiv>
+        <BackButton onClick={onClickBackBtn}>Back</BackButton>
+      </BackDiv>
+
       <Header>
         <Title>
           {state?.name ? state.name : loading ? 'Loading...' : infoData?.name}
