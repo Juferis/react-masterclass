@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const OverviewPrice = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.accentColor};
   padding: 10px 20px;
   border-radius: 10px;
   margin-bottom: 10px;
@@ -18,7 +18,7 @@ const OverviewPriceItem = styled.div`
 const Priceview = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.cardBgColor};
   padding: 10px 20px;
   border-radius: 10px;
   margin-bottom: 10px;

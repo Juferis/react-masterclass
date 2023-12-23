@@ -94,7 +94,7 @@ const BackButton = styled.button`
   }
 `;
 
-function Coin({ isDark }: ICoinProps) {
+function Coin({}: ICoinProps) {
   const { coinId } = useParams<CoinRouteParams>();
   const { state } = useLocation<RouteState>();
   const priceMatch = useRouteMatch('/:coinId/price');
@@ -172,7 +172,7 @@ function Coin({ isDark }: ICoinProps) {
               <Price coinId={coinId} />
             </Route>
             <Route path={`/:coinId/chart`}>
-              <Chart isDark={isDark} coinId={coinId} />
+              <Chart coinId={coinId} />
             </Route>
           </Switch>
         </>
@@ -249,6 +249,4 @@ interface PriceData {
   };
 }
 
-interface ICoinProps {
-  isDark: boolean;
-}
+interface ICoinProps {}

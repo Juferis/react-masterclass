@@ -2,6 +2,9 @@ import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchCoins } from './api';
+import { Helmet } from 'react-helmet';
+import { useSetRecoilState } from 'recoil';
+import { isDarkAtom } from '../atoms';
 
 const Container = styled.div`
   @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
@@ -49,14 +52,19 @@ const Img = styled.img`
   margin-right: 10px;
 `;
 
-function Coins({ toggleDark }: ICoinsProps) {
+function Coins({}: ICoinsProps) {
+  const setDarkAtom = useSetRecoilState(isDarkAtom);
+  const toggleDarkAtom = () => setDarkAtom((prev) => !prev);
   // React Query는 데이터를 캐싱한다.
   const { isLoading, data } = useQuery<ICoin[]>('allCoins', fetchCoins);
   return (
     <Container>
+      <Helmet>
+        <title>Coins</title>
+      </Helmet>
       <Header>
         <Title>Coins 코인</Title>
-        <button onClick={toggleDark}>Toggle Mode</button>
+        <button onClick={toggleDarkAtom}>Toggle Mode</button>
       </Header>
       {isLoading ? (
         <Loader>Loading...</Loader>
@@ -94,6 +102,4 @@ interface ICoin {
   is_active: boolean;
   type: string;
 }
-interface ICoinsProps {
-  toggleDark: () => void;
-}
+interface ICoinsProps {}
