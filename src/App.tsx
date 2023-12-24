@@ -1,10 +1,5 @@
-import { ThemeProvider, createGlobalStyle } from 'styled-components';
-import Router from './Router';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { lightTheme, darkTheme } from './theme';
-import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
-import { isDarkAtom } from './atoms';
+import { createGlobalStyle } from 'styled-components';
+import ToDoList from './ToDoList';
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -68,14 +63,10 @@ table {
 
 function App() {
   // <></> -> react에서는 Fragment를 이용해서 태그를 여러개 return한다.
-  const isDark = useRecoilValue(isDarkAtom);
   return (
     <>
-      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-        <GlobalStyle />
-        <Router />
-        <ReactQueryDevtools initialIsOpen={true} />
-      </ThemeProvider>
+      <GlobalStyle />
+      <ToDoList />
     </>
   );
 }
