@@ -9,11 +9,13 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode> // 두 번 호출되는 문제가 있어서 div 사용
+  <div>
     <RecoilRoot>
       <ThemeProvider theme={darkTheme}>
         <App />
       </ThemeProvider>
     </RecoilRoot>
-  </React.StrictMode>
+  </div>
+  // </React.StrictMode>
 );
