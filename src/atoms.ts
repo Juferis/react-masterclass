@@ -5,9 +5,24 @@ export const categoryState = atom({
     default: "TO_DO",
 })
 
+const getLocalStorageData = () => {
+    const toDoData = localStorage.getItem('toDo');
+
+    if (!toDoData) {
+        return [];
+    }
+
+    try {
+        const parsedData = JSON.parse(toDoData);
+        return Array.isArray(parsedData) ? parsedData : [];
+    } catch (error) {
+        return [];
+    }
+};
+
 export const toDoState = atom<IToDo[]>({
     key: 'toDo',
-    default: [],
+    default: getLocalStorageData(),
 });
 
 export const toDoSelector = selector({
@@ -18,6 +33,8 @@ export const toDoSelector = selector({
         return toDos.filter((toDo) => toDo.category === category);
     },
 })
+
+
 
 export interface IToDo {
     text: string;

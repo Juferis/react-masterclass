@@ -6,10 +6,14 @@ function CreateToDo() {
   const setToDos = useSetRecoilState(toDoState);
   const { register, handleSubmit, setValue } = useForm<IForm>();
   const handleValid = ({ toDo }: IForm) => {
-    setToDos((oldToDos: IToDo[]) => [
-      { text: toDo, id: Date.now(), category: ToDoStatus.TO_DO },
-      ...oldToDos,
-    ]);
+    setToDos((oldToDos: IToDo[]) => {
+      const newToDos = [
+        { text: toDo, id: Date.now(), category: ToDoStatus.TO_DO },
+        ...oldToDos,
+      ];
+      localStorage.setItem('toDo', JSON.stringify(newToDos));
+      return newToDos;
+    });
     setValue('toDo', '');
   };
   return (
