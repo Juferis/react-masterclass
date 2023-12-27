@@ -1,5 +1,26 @@
 import { atom, selector } from 'recoil';
 
+export const categoryList: string[] = ['TO_DO', 'DOING', 'DONE'];
+
+const getLocalStorageCategory = () => {
+    const categoryData = localStorage.getItem('toDoCategory');
+
+    if (!categoryData) {
+        return categoryList; // If no data in local storage, return default category list
+    }
+
+    try {
+        const parsedData = JSON.parse(categoryData);
+        return Array.isArray(parsedData) ? parsedData : categoryList;
+    } catch (error) {
+        return categoryList;
+    }
+};
+export const categoryListState = atom<string[]>({
+    key: "categoryList",
+    default: getLocalStorageCategory(),
+})
+
 export const categoryState = atom({
     key: "category",
     default: "TO_DO",
@@ -34,16 +55,18 @@ export const toDoSelector = selector({
     },
 })
 
+const getCategory = () => {
 
+}
 
 export interface IToDo {
     text: string;
     id: number;
-    category: ToDoStatus;
+    category: string;
 }
 
-export enum ToDoStatus {
-    TO_DO = 'TO_DO',
-    DOING = 'DOING',
-    DONE = 'DONE',
-}
+// export enum ToDoStatus {
+//     TO_DO = 'TO_DO',
+//     DOING = 'DOING',
+//     DONE = 'DONE',
+// }
